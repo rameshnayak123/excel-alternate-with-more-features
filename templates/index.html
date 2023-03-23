@@ -148,7 +148,7 @@
     
             <div class="text-end">
                 <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-              <button type="button" class="btn btn-warning">Sign-up</button>
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign-up</button>
             </div>
           </div>
         </div>
@@ -226,13 +226,73 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password">
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary">Login</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sign Up modal -->
+    <div class="container" style="height: 300px;">
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Login Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('signup') }}">
+                            <div class="mb-3">
+                                <label for="organization" class="form-label">Select organization</label>
+                                <select class="form-select" id="organization" name="organization" required>
+                                  <option value="banking">Banking</option>
+                                  <option value="technology">Technology</option>
+                                  <option value="education">Education</option>
+                                  <option value="pthers">others</option>
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="company" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="company" name="company" required>
+                              </div>
+                              <div class="mb-3">
+                                <label for="fullname" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullname" name="fullname" required>
+                              </div>
+                              <div class="mb-3">
+                                <label for="pricing" class="form-label">Select pricing option</label>
+                                <select class="form-select" id="pricing" name="pricing" required>
+                                  <option value="level1">Level 1</option>
+                                  <option value="level2">Level 2</option>
+                                  <option value="level3">Level 3</option>
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="input-group">
+                                  <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                              </div>
+                              <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                              </div>
+                              <div class="mb-3">
+                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                              </div>
+                              
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Sign up</button>
+                            
+                        </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>
