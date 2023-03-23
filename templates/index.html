@@ -241,13 +241,13 @@
         <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" >
                         <h5 class="modal-title" id="loginModalLabel">Login Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form method="POST" action="{{ url_for('signup') }}">
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="organization" class="form-label">Select organization</label>
                                 <select class="form-select" id="organization" name="organization" required>
                                   <option value="banking">Banking</option>
@@ -256,15 +256,15 @@
                                   <option value="pthers">others</option>
                                 </select>
                               </div>
-                              <div class="mb-3">
+                              <div class="mb-1">
                                 <label for="company" class="form-label">Company Name</label>
                                 <input type="text" class="form-control" id="company" name="company" required>
                               </div>
-                              <div class="mb-3">
+                              <div class="mb-1">
                                 <label for="fullname" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="fullname" name="fullname" required>
                               </div>
-                              <div class="mb-3">
+                              <div class="mb-1">
                                 <label for="pricing" class="form-label">Select pricing option</label>
                                 <select class="form-select" id="pricing" name="pricing" required>
                                   <option value="level1">Level 1</option>
@@ -272,24 +272,24 @@
                                   <option value="level3">Level 3</option>
                                 </select>
                               </div>
-                              <div class="mb-3">
+                              <div class="mb-1">
                                 <label for="email" class="form-label">Email</label>
                                 <div class="input-group">
                                   <input type="email" class="form-control" id="email" name="email" required>
                                 </div>
                               </div>
-                              <div class="mb-3">
+                              <div class="mb-1">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                               </div>
-                              <div class="mb-3">
-                                <label for="confirm_password" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                              <div class="mb-1">
+                                <label for="confirm" class="form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm" name="confirm" required>
                               </div>
-                              
+                              <div class="mb-1">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Sign up</button>
-                            
+                              </div>
                         </form>
                     </div>
                     
