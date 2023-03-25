@@ -1,6 +1,6 @@
 import re
 import bcrypt
-from flask import Flask, request, render_template,jsonify
+from flask import Flask, request, render_template, jsonify
 from app import app, db
 from models import User
 
@@ -18,7 +18,7 @@ def signup():
     password = request.form['password']
     confirm = request.form['confirm']
 
-    user = db.session.query(User).filter_by(email=email).first()
+    user = User.query.filter_by(email=email).first()
     if user:
         return jsonify({'error': 'Email address already exists'}), 409
 
@@ -37,3 +37,22 @@ def signup():
         db.session.commit()
 
     return 'User created successfully!'
+
+@app.route('/login', methods=['POST'])
+def login():
+    email = request.form['email']
+    password = request.form['password']
+
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        return 'User not found'
+
+    # Verify password hash
+    if not bcrypt.checkpw(password.encode('utf-8'), user.password):
+        return 'Incorrect password'
+
+    # Login successful
+    # Store user information in session or generate a JWT token
+    # Redirect user to dashboard
+    return 'Login successful'
+
