@@ -1,8 +1,12 @@
 import re
 import bcrypt
-from flask import Flask, request, render_template, jsonify
+from datetime import datetime, timedelta
+from flask import Flask, request, render_template, jsonify, redirect,url_for,session, after_this_request
 from app import app, db
 from models import User
+
+app.secret_key = 'RameshNayakyouneedtochange'
+
 
 @app.route('/')
 def index():
@@ -38,6 +42,15 @@ def signup():
 
     return 'User created successfully!'
 
+# Set response headers to prevent caching
+@app.after_request
+def add_header(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
+
 @app.route('/login', methods=['POST'])
 def login():
     email = request.form['email']
@@ -52,7 +65,38 @@ def login():
         return 'Incorrect password'
 
     # Login successful
-    # Store user information in session or generate a JWT token
-    # Redirect user to dashboard
-    return 'Login successful'
+    # Store user information in session
+    session['user_id'] = user.id
+    session['logged_in'] = True
 
+    # Redirect user to dashboard
+    return redirect(url_for('dashboard'))
+
+@app.route('/dashboard')
+def dashboard():
+    # Check if user is logged in
+    if not session.get('logged_in'):
+        # Redirect user to index page if not logged in
+        return redirect(url_for('index'))
+
+    return render_template('dashboard.html')
+
+@app.route('/logout')
+def logout():
+    # Clear user information from session
+    session.pop('logged_in', None)
+    session.clear()
+
+    # Redirect user to index page
+    return redirect(url_for('index'))
+
+@app.route('/home')
+def home():
+    return "hello world123"
+
+
+
+
+@app.route('/hirenow')
+def hirenow():
+    return "hello world"
