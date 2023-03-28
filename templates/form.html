@@ -12,19 +12,29 @@
 				margin-bottom: 1rem;
 			}
 		}
+        form{
+            float: right;
+        }
+        .content {
+            float: left;
+        }
+        
 	</style>
 </head>
 <body>
-	<div class="container my-4">
-		<form>
+	<div class="container my-2">
+		<form class="border border-dark p-1 bg-white">
+        <div class="bg-dark">
+            <h3 class="text-center text-white">Apply Now</h3><hr>
+        </div>
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-6 float-md-left">
 					<div class="form-group">
 						<label for="firstName">Full Name</label>
 						<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your Full Name">
 					</div>
 				</div>
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select class="form-control" id="gender" name="gender">
@@ -36,14 +46,14 @@
                     </div>
                 </div>
 			</div>
-            <div class="row"> 
-                <div class="col-md-3">
+            <div class="row "> 
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="mobile">Mobile</label>
                         <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number">
@@ -51,13 +61,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="degree">Degree</label>
                         <input type="text" class="form-control" id="degree" name="degree" placeholder="Enter your degree">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
 					<div class="form-group">
 						<label for="course">Course</label>
 						<input type="text" class="form-control" id="course" name="course" placeholder="Enter your course">
@@ -65,13 +75,13 @@
 				</div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="collegeName">College Name</label>
                         <input type="text" class="form-control" id="collegeName" name="collegeName" placeholder="Enter your college name">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="district">District</label>
                         <input type="text" class="form-control" id="district" name="district" placeholder="Enter your district">
@@ -79,13 +89,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="state">State</label>
                         <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="country">Country</label>
                         <input type="text" class="form-control" id="country" name="country" placeholder="Enter your country">
@@ -93,13 +103,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="pincode">Pincode</label>
                         <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter your Pincode">
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6 float-md-left">
                     <div class="form-group">
                         <label for="upload">Resume in PDf</label>
                         <input type="file" class="form-control" id="upload" name="upload" accept=".pdf">
@@ -107,8 +117,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary mx-auto col-md-6">Submit</button>
-
+                <button type="submit" class="btn btn-warning col-md-12">Submit</button>
             </div>
 		</form>
 	</div>
