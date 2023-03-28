@@ -1,12 +1,14 @@
 import re
+import datetime
 import bcrypt
+import json
 from datetime import datetime, timedelta
 from flask import Flask, request, render_template, jsonify, redirect,url_for,session, after_this_request
 from app import app, db
 from models import User
 
 app.secret_key = 'RameshNayakyouneedtochange'
-
+url_data = {}
 
 @app.route('/')
 def index():
@@ -99,4 +101,50 @@ def home():
 
 @app.route('/hirenow')
 def hirenow():
-    return "hello world"
+    return render_template('hirenow.html')
+
+@app.route('/generate-url', methods=['POST'])
+def generate_url():
+    # Get form data
+    title = request.form['title']
+    bond_years = request.form['bond_years']
+    ctc = request.form['ctc']
+    description = request.form['description']
+
+    # Generate URL and store data
+    url = f'{datetime.datetime.now().timestamp()}'
+    url_data = {
+        'title': title,
+        'bond_years': bond_years,
+        'ctc': ctc,
+        'description': description,
+        'timestamp': datetime.datetime.now().timestamp()
+    }
+    with open('data.json', 'a') as file:
+        json.dump({url: url_data}, file)
+
+    # Render result template with URL
+    return render_template('hirenow.html', url=url)
+
+@app.route('/register/<url_id>', methods=['GET', 'POST'])
+def register(url_id):
+    # Check if URL is valid and not expired
+    url_info = get_url_data(url_id)
+    if url_info is None:
+        return 'Invalid URL'
+
+    expiration_time = 3600  # 1 hour
+    if datetime.datetime.now().timestamp() - url_info['timestamp'] > expiration_time:
+        return 'URL has expired'
+
+    # Handle form submissions
+    if request.method == 'POST':
+        # Process form data
+        # ...
+
+        # Render success template
+        return render_template('success.html')
+
+    # Render form template
+    return render_template('form.html', url_id=url_id, title=url_info['title'], bond_years=url_info['bond_years'], ctc=url_info['ctc'], description=url_info['description'])
+
