@@ -1,12 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<title>Bootstrap Form Example</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		@media(max-width:576px) {
+			.form-group {
+				margin-bottom: 1rem;
+			}
+		}
+	</style>
 </head>
 <body>
-    <h1>hello</h1>
+	<div class="container my-4">
+		<form>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="firstName">Full Name</label>
+						<input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your Full Name">
+					</div>
+				</div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <option value="">Select gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+			</div>
+            <div class="row"> 
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="degree">Degree</label>
+                        <input type="text" class="form-control" id="degree" name="degree" placeholder="Enter your degree">
+                    </div>
+                </div>
+                <div class="col-md-3">
+					<div class="form-group">
+						<label for="course">Course</label>
+						<input type="text" class="form-control" id="course" name="course" placeholder="Enter your course">
+					</div>
+				</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="collegeName">College Name</label>
+                        <input type="text" class="form-control" id="collegeName" name="collegeName" placeholder="Enter your college name">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" id="district" name="district" placeholder="Enter your district">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" placeholder="Enter your country">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter your Pincode">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="upload">Resume in PDf</label>
+                        <input type="file" class="form-control" id="upload" name="upload" accept=".pdf">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary mx-auto col-md-6">Submit</button>
+
+            </div>
+		</form>
+	</div>
 </body>
 </html>
+
+
+
+
+

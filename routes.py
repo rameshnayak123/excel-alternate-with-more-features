@@ -95,38 +95,30 @@ def logout():
 
 @app.route('/home')
 def home():
+    # Check if user is logged in
+    if not session.get('logged_in'):
+        # Redirect user to index page if not logged in
+        return redirect(url_for('index'))
+
     return "hello world123"
 
 @app.route('/hirenow')
 def hirenow():
+    # Check if user is logged in
+    if not session.get('logged_in'):
+        # Redirect user to index page if not logged in
+        return redirect(url_for('index'))
+    
     return render_template('hirenow.html')
 
 
-@app.route('/view/<string:title>/<int:timestamp>')
-def view(timestamp):
-    # Load data from JSON file
-    with open('data.json', 'r') as f:
-        data = json.load(f)
-
-    # Find data with matching timestamp
-    for d in data:
-        if int(d['timestamp']) == timestamp:
-            # Check if data has expired
-            if datetime.now().timestamp() <= d['expiry']:
-                # Render form template with data
-                return render_template('form.html', data=d)
-            else:
-                # Data has expired, delete it from JSON file
-                data.remove(d)
-                with open('data.json', 'w') as f:
-                    json.dump(data, f)
-                break
-
-    # Return 404 if no matching data found or data has expired
-    return render_template('404.html'), 404
-
 @app.route('/generate', methods=['POST'])
 def generate():
+    # Check if user is logged in
+    if not session.get('logged_in'):
+        # Redirect user to index page if not logged in
+        return redirect(url_for('index'))
+    
     # Get form data
     title = request.form['title']
     bond_years = request.form['bond-years']
@@ -159,7 +151,7 @@ def generate():
         json.dump(existing_data, f)
 
     # Generate URL based on title
-    url = f"/view/{title.replace(' ', '-')}/{int(data['timestamp'])}"
+    url = f"/view/{title.lower().replace(' ', '-')}/{int(data['timestamp'])}"
 
     # Update URL in data dictionary
     data['url'] = url
@@ -169,6 +161,27 @@ def generate():
         json.dump(existing_data, f)
 
     # Return URL
-    return url
+    return redirect('dashboard')
 
+@app.route('/view/<string:title>/<int:timestamp>')
+def view(title, timestamp):
+    # Load data from JSON file
+    with open('data.json', 'r') as f:
+        data = json.load(f)
 
+    # Find data with matching timestamp and title
+    for d in data:
+        if int(d['timestamp']) == timestamp and d['title'].lower() == title.lower().replace('-', ' '):
+            # Check if data has expired
+            if datetime.now().timestamp() <= d['expiry']:
+                # Render form template with data
+                return render_template('form.html', data=d)
+            else:
+                # Data has expired, delete it from JSON file
+                data.remove(d)
+                with open('data.json', 'w') as f:
+                    json.dump(data, f)
+                break
+
+    # Return 404 if no matching data found or data has expired
+    return render_template('404.html'), 404
