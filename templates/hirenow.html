@@ -28,22 +28,26 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="url-form">
+          <form id="url-form" action="{{ url_for('generate') }}" method="POST">
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" id="title">
+              <input type="text" class="form-control" name="title">
             </div>
             <div class="mb-3">
               <label for="bond-years" class="form-label">Bond Years</label>
-              <input type="number" class="form-control" id="bond-years">
+              <input type="number" class="form-control" name="bond-years">
             </div>
             <div class="mb-3">
               <label for="ctc" class="form-label">CTC</label>
-              <input type="number" class="form-control" id="ctc">
+              <input type="number" class="form-control" name="ctc">
+            </div>
+            <div class="mb-3">
+              <label for="minutes_valid" class="form-label">Set valid time in minutes</label>
+              <input type="number" class="form-control" name="minutes_valid">
             </div>
             <div class="mb-3">
               <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" id="message" rows="3"></textarea>
+              <textarea class="form-control" name="message" rows="3"></textarea>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -59,24 +63,7 @@
     <p class="text-center" id="url-text"></p>
   </div>
 </body>
-<script>
-    const urlForm = document.querySelector('#url-form');
-    const urlResult = document.querySelector('#url-result');
-    const urlText = document.querySelector('#url-text');
 
-    urlForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(urlForm);
-    const url = '/generate-url' + new URLSearchParams(formData).toString();
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-        urlResult.classList.remove('d-none');
-        urlText.textContent = data;
-        // display the generated URL to the user
-        alert(`Your registration URL is: ${data}`);
-        });
-    });
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
-</script>
 </html>  

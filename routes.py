@@ -1,5 +1,7 @@
 import re
 import datetime
+import time
+import os
 import bcrypt
 import json
 from datetime import datetime, timedelta
@@ -8,7 +10,6 @@ from app import app, db
 from models import User
 
 app.secret_key = 'RameshNayakyouneedtochange'
-url_data = {}
 
 @app.route('/')
 def index():
@@ -96,55 +97,78 @@ def logout():
 def home():
     return "hello world123"
 
-
-
-
 @app.route('/hirenow')
 def hirenow():
     return render_template('hirenow.html')
 
-@app.route('/generate-url', methods=['POST'])
-def generate_url():
+
+@app.route('/view/<string:title>/<int:timestamp>')
+def view(timestamp):
+    # Load data from JSON file
+    with open('data.json', 'r') as f:
+        data = json.load(f)
+
+    # Find data with matching timestamp
+    for d in data:
+        if int(d['timestamp']) == timestamp:
+            # Check if data has expired
+            if datetime.now().timestamp() <= d['expiry']:
+                # Render form template with data
+                return render_template('form.html', data=d)
+            else:
+                # Data has expired, delete it from JSON file
+                data.remove(d)
+                with open('data.json', 'w') as f:
+                    json.dump(data, f)
+                break
+
+    # Return 404 if no matching data found or data has expired
+    return render_template('404.html'), 404
+
+@app.route('/generate', methods=['POST'])
+def generate():
     # Get form data
     title = request.form['title']
-    bond_years = request.form['bond_years']
+    bond_years = request.form['bond-years']
     ctc = request.form['ctc']
-    description = request.form['description']
+    message = request.form['message']
+    minutes_valid = int(request.form.get('minutes_valid', 60))  # default 60 minutes
 
-    # Generate URL and store data
-    url = f'{datetime.datetime.now().timestamp()}'
-    url_data = {
+    # Create dictionary containing the form data
+    data = {
         'title': title,
         'bond_years': bond_years,
         'ctc': ctc,
-        'description': description,
-        'timestamp': datetime.datetime.now().timestamp()
+        'message': message,
+        'timestamp': datetime.now().timestamp(),
+        'expiry': (datetime.now() + timedelta(minutes=minutes_valid)).timestamp()
     }
-    with open('data.json', 'a') as file:
-        json.dump({url: url_data}, file)
 
-    # Render result template with URL
-    return render_template('hirenow.html', url=url)
+    # Load existing data from JSON file (if any)
+    try:
+        with open('data.json', 'r') as f:
+            existing_data = json.load(f)
+    except FileNotFoundError:
+        existing_data = []
 
-@app.route('/register/<url_id>', methods=['GET', 'POST'])
-def register(url_id):
-    # Check if URL is valid and not expired
-    url_info = get_url_data(url_id)
-    if url_info is None:
-        return 'Invalid URL'
+    # Append new dictionary to loaded data
+    existing_data.append(data)
 
-    expiration_time = 3600  # 1 hour
-    if datetime.datetime.now().timestamp() - url_info['timestamp'] > expiration_time:
-        return 'URL has expired'
+    # Save updated data back to JSON file
+    with open('data.json', 'w') as f:
+        json.dump(existing_data, f)
 
-    # Handle form submissions
-    if request.method == 'POST':
-        # Process form data
-        # ...
+    # Generate URL based on title
+    url = f"/view/{title.replace(' ', '-')}/{int(data['timestamp'])}"
 
-        # Render success template
-        return render_template('success.html')
+    # Update URL in data dictionary
+    data['url'] = url
 
-    # Render form template
-    return render_template('form.html', url_id=url_id, title=url_info['title'], bond_years=url_info['bond_years'], ctc=url_info['ctc'], description=url_info['description'])
+    # Update JSON file with updated data
+    with open('data.json', 'w') as f:
+        json.dump(existing_data, f)
+
+    # Return URL
+    return url
+
 

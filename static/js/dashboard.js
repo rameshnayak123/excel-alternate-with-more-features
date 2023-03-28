@@ -50,3 +50,21 @@ const hireNowBtn = document.querySelector('#hirenow-btn');
 hireNowBtn.addEventListener('click', () => {
     getData();
 });
+
+const urlForm = document.querySelector('#url-form');
+    const urlResult = document.querySelector('#url-result');
+    const urlText = document.querySelector('#url-text');
+
+    urlForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(urlForm);
+    const url = '/generate-url' + new URLSearchParams(formData).toString();
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+        urlResult.classList.remove('d-none');
+        urlText.textContent = data;
+        // display the generated URL to the user
+        alert(`Your registration URL is: ${data}`);
+        });
+    });
