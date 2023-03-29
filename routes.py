@@ -124,6 +124,7 @@ def generate():
     bond_years = request.form['bond-years']
     ctc = request.form['ctc']
     message = request.form['message']
+    skill = request.form['skill']
     minutes_valid = int(request.form.get('minutes_valid', 60))  # default 60 minutes
 
     # Create dictionary containing the form data
@@ -132,6 +133,7 @@ def generate():
         'bond_years': bond_years,
         'ctc': ctc,
         'message': message,
+        'skill':skill,
         'timestamp': datetime.now().timestamp(),
         'expiry': (datetime.now() + timedelta(minutes=minutes_valid)).timestamp()
     }
@@ -148,7 +150,7 @@ def generate():
 
     # Save updated data back to JSON file
     with open('data.json', 'w') as f:
-        json.dump(existing_data, f)
+        json.dump(existing_data, f, indent=4)
 
     # Generate URL based on title
     url = f"/view/{title.lower().replace(' ', '-')}/{int(data['timestamp'])}"
@@ -175,7 +177,7 @@ def view(title, timestamp):
             # Check if data has expired
             if datetime.now().timestamp() <= d['expiry']:
                 # Render form template with data
-                return render_template('form.html', data=d)
+                return render_template('form.html', data=d['title'])
             else:
                 # Data has expired, delete it from JSON file
                 data.remove(d)

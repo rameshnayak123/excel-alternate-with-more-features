@@ -13,6 +13,12 @@
       referrerpolicy="no-referrer"
     />
   </head>
+  <style>
+    #bond-years,#fullname,#gender,#degree,#ctc,#course,#collegeName,#district,#state,#country,#pincode,#upload{
+            height: 30px;
+            font-size:smaller;
+        }
+  </style>
   <body>
     <!-- Button to trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -28,39 +34,103 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="url-form" action="{{ url_for('generate') }}" method="POST">
-            <div class="mb-3">
-              <label for="title" class="form-label">Title</label>
-              <input type="text" class="form-control" name="title">
+          <form class="border border-dark p-2 bg-white">
+          <div class="row">
+            <div class="col-md-6 float-md-left">
+              <div class="form-group">
+                <label for="title">Job Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="Enter your Job title">
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="bond-years" class="form-label">Bond Years</label>
-              <input type="number" class="form-control" name="bond-years">
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="experince">Experince</label>
+                            <select class="form-control" id="experince" name="experince">
+                                <option value="">Select Experince</option>
+                                <option value="0-2">0-2</option>
+                                <option value="2-5">2-5</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+          </div>
+                <div class="row "> 
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="bond-years">Bond Years</label>
+                            <input type="number" class="form-control" id="bond-years" name="bond-years" placeholder="Enter bond-years">
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="ctc">CTC</label>
+                            <input type="ctc" class="form-control" id=ctc" name="ctc" placeholder="Enter CTC">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="degree">Degree</label>
+                            <input type="text" class="form-control" id="degree" name="degree" placeholder="Enter your degree">
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-md-left">
+              <div class="form-group">
+                <label for="course">Course</label>
+                <input type="text" class="form-control" id="course" name="course" placeholder="Enter your course">
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="ctc" class="form-label">CTC</label>
-              <input type="number" class="form-control" name="ctc">
-            </div>
-            <div class="mb-3">
-              <label for="minutes_valid" class="form-label">Set valid time in minutes</label>
-              <input type="number" class="form-control" name="minutes_valid">
-            </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea class="form-control" name="message" rows="3"></textarea>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-            </form>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="collegeName">College Name</label>
+                            <input type="text" class="form-control" id="collegeName" name="collegeName" placeholder="Enter your college name">
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <input type="text" class="form-control" id="district" name="district" placeholder="Enter your district">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state">
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" id="country" name="country" placeholder="Enter your country">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter your Pincode">
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-md-left">
+                        <div class="form-group">
+                            <label for="upload">Resume in PDf</label>
+                            <input type="file" class="form-control" id="upload" name="upload" accept=".pdf">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group p-2">
+                    <button type="submit" class="btn btn-warning col-md-12">Submit</button>
+                </div>
+        </form>
         </div>
       </div>
     </div>
-  </div>
-  <div id="url-result" class="mt-4">
-    <h4 class="text-center">{{ url }}</h4>
-    <p class="text-center" id="url-text"></p>
   </div>
 </body>
 
